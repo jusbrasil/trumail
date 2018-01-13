@@ -2,7 +2,11 @@ package main
 
 import (
 	"net/http"
+	"os"
+	"os/signal"
+	"runtime/pprof"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/Sirupsen/logrus"
@@ -32,7 +36,21 @@ func main() {
 		r.HandleStatic("./web")
 	}
 
+	handleSignals()
+
 	// Listen and Serve
 	l.Info("Listening and Serving")
 	r.ListenAndServe(config.Port)
+}
+
+func handleSignals() {
+	sigChan := make(chan os.Signal, 3)
+	go func() {
+		for sig := range sigChan {
+			if sig == syscall.SIGUSR1 {
+				pprof.Lookup("goroutine").WriteTo(os.Stdout, 2)
+			}
+		}
+	}()
+	signal.Notify(sigChan, syscall.SIGUSR1)
 }
