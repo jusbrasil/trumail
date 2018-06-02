@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/fmatoss/trumail/api"
-	"github.com/fmatoss/trumail/config"
+	"github.com/felipemsantana/trumail/api"
+	"github.com/felipemsantana/trumail/config"
 )
 
 func main() {

@@ -1,9 +1,9 @@
 # Trumail 
 
-[![CircleCI](https://circleci.com/gh/fmatoss/trumail.svg?style=svg)](https://circleci.com/gh/fmatoss/trumail)
-[![GoDoc](https://godoc.org/github.com/fmatoss/trumail/verifier?status.svg)](https://godoc.org/github.com/fmatoss/trumail/verifier)
+[![CircleCI](https://circleci.com/gh/felipemsantana/trumail.svg?style=svg)](https://circleci.com/gh/felipemsantana/trumail)
+[![GoDoc](https://godoc.org/github.com/felipemsantana/trumail/verifier?status.svg)](https://godoc.org/github.com/felipemsantana/trumail/verifier)
 
-Trumail is a free and open source email validation/verification system. It is available in three forms, the Golang client library `verifier` for use in your own Go projects, a public API endpoint (more info: https://trumail.io), and a public Docker image on DockerHub (see: https://hub.docker.com/r/fmatoss/trumail/). 
+Trumail is a free and open source email validation/verification system. It is available in three forms, the Golang client library `verifier` for use in your own Go projects, a public API endpoint (more info: https://trumail.io), and a public Docker image on DockerHub (see: https://hub.docker.com/r/felipemsantana/trumail/).
 
 Our own API endpoint allows up to 1RPS per IP. This is to prevent abuse and to leave the tubes open for other users. If you perform requests in excess of the specified rate-limit a `429 Too Many Requests` will be returned instead.
 
@@ -24,7 +24,7 @@ package main
 import (
 	"log"
 
-	trumail "github.com/fmatoss/trumail/verifier"
+	trumail "github.com/felipemsantana/trumail/verifier"
 )
 
 func main() {
@@ -53,7 +53,7 @@ QUIT                            // Cancel the transaction, we have all the info 
 ```
 As you can see we first form a tcp connection with the mail server on port 25. We then identify ourselves as example.com and set a reply-to email of admin@example.com (both these are configured via the SOURCE_ADDR environment variable). The last, and obviously most important step in this process is the RCPT command. This is where, based on the response from the mail server, we are able to conclude the deliverability of a given email address. A 200 implies a valid inbox and anything else implies either an error with our connection to the mail server, or a problem with the address requested.
 
-The first 3 command steps above process happen [here](https://github.com/fmatoss/trumail/blob/master/verifier/deliverabler.go#L53-L73). Deliverability is checked [here](https://github.com/fmatoss/trumail/blob/master/verifier/deliverabler.go#L86). Transaction is cancelled (QUIT) and the connection is closed [here](https://github.com/fmatoss/trumail/blob/master/verifier/deliverabler.go#L111-L112).
+The first 3 command steps above process happen [here](https://github.com/felipemsantana/trumail/blob/master/verifier/deliverabler.go#L53-L73). Deliverability is checked [here](https://github.com/felipemsantana/trumail/blob/master/verifier/deliverabler.go#L86). Transaction is cancelled (QUIT) and the connection is closed [here](https://github.com/felipemsantana/trumail/blob/master/verifier/deliverabler.go#L111-L112).
 
 The BSD 3-clause License
 ========================

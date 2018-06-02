@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/fmatoss/trumail/verifier"
+	"github.com/felipemsantana/trumail/verifier"
 	"github.com/gorilla/mux"
 )
 
