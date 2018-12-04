@@ -1,4 +1,4 @@
-package: github.com/sdwolfe32/trumail
+package: github.com/jusbrasil/trumail
 import:
 - package: github.com/Sirupsen/logrus
 - package: github.com/gorilla/handlers

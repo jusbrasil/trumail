@@ -5,7 +5,7 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	"github.com/gorilla/mux"
-	"github.com/sdwolfe32/trumail/verifier"
+	"github.com/jusbrasil/trumail/verifier"
 )
 
 const maxWorkerCount = 20
