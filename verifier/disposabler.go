@@ -60,7 +60,7 @@ func (d *disposabler) domainFarmer() error {
 		for _, url := range lists {
 			// Performs the request for the domain list
 			resp, err := http.Get(url)
-			if err != nil {
+			if err != nil || resp.StatusCode != 200 {
 				return err
 			}
 			defer resp.Body.Close()
@@ -73,7 +73,7 @@ func (d *disposabler) domainFarmer() error {
 
 			// Adds every domain to our disposable domain map
 			d.Lock()
-			if strings.Contains(url, "FGRibreau/mailchecker") {
+			if strings.Contains(url, ".json") {
 				re := regexp.MustCompile(`//.*`)
 				res := re.ReplaceAllString(string(body), "")
 
