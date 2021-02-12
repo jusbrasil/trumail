@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/gorilla/mux"
 	"github.com/jusbrasil/trumail/verifier"
+	"github.com/gorilla/mux"
 )
 
 const maxWorkerCount = 20

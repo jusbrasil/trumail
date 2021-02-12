@@ -16,11 +16,11 @@ var lists = []string{
 	"https://raw.githubusercontent.com/wesbos/burner-email-providers/master/emails.txt",
 	"https://gist.githubusercontent.com/adamloving/4401361/raw/db901ef28d20af8aa91bf5082f5197d27926dea4/temporary-email-address-domains",
 	"https://gist.githubusercontent.com/michenriksen/8710649/raw/e09ee253960ec1ff0add4f92b62616ebbe24ab87/disposable-email-provider-domains",
-	"https://raw.githubusercontent.com/martenson/disposable-email-domains/master/disposable_email_blacklist.conf",
-	"https://raw.githubusercontent.com/andreis/disposable/master/domains.txt",
+	"https://raw.githubusercontent.com/martenson/disposable-email-domains/master/disposable_email_blocklist.conf",
+	"https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.txt",
 	"https://raw.githubusercontent.com/jamesaustin/disposable-email-domains/master/disposable-email-domains.txt",
 	"https://raw.githubusercontent.com/flotwig/disposable-email-addresses/master/domains.txt",
-	"https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.json",
+	"https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.txt",
 }
 
 // Disposabler defines all functionality for checking if an email
@@ -60,7 +60,7 @@ func (d *disposabler) domainFarmer() error {
 		for _, url := range lists {
 			// Performs the request for the domain list
 			resp, err := http.Get(url)
-			if err != nil {
+			if err != nil || resp.StatusCode != 200 {
 				return err
 			}
 			defer resp.Body.Close()
@@ -73,7 +73,7 @@ func (d *disposabler) domainFarmer() error {
 
 			// Adds every domain to our disposable domain map
 			d.Lock()
-			if strings.Contains(url, "FGRibreau/mailchecker") {
+			if strings.Contains(url, ".json") {
 				re := regexp.MustCompile(`//.*`)
 				res := re.ReplaceAllString(string(body), "")
 
